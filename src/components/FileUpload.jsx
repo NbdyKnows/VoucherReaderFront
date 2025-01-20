@@ -38,9 +38,12 @@ export default function FileUpload() {
         formData.append('file', file)
 
         try {
-            const response = await fetch('http://localhost:3000/vouchers/upload', {
+            const response = await fetch('https://2cb2-177-91-248-67.ngrok-free.app/vouchers/upload', {
                 method: 'POST',
-                body: formData
+                body: formData,
+                headers: {
+                    'Accept': 'application/json',
+                },
             })
 
             if (!response.ok) {
@@ -48,7 +51,7 @@ export default function FileUpload() {
             }
 
             const result = await response.json()
-            console.log(result) // Mostrar el JSON recibido en la consola por el back
+            console.log(result)
             if (result.success) {
                 setFileInfo(result.data)
                 setIsUploaded(true)
@@ -75,17 +78,17 @@ export default function FileUpload() {
         if (!fileInfo) return
 
         const fileInfoText = `
-Nombre: ${fileInfo.name}
-Monto: ${fileInfo.amount}
-Fecha: ${fileInfo.date}
-Número de operación: ${fileInfo.operationNumber}
+                Nombre: ${fileInfo.name}
+                Monto: ${fileInfo.amount}
+                Fecha: ${fileInfo.date}
+                Número de operación: ${fileInfo.operationNumber}
         `
 
         try {
             await navigator.clipboard.writeText(fileInfoText)
             alert('Información copiada al portapapeles exitosamente')
 
-            const response = await fetch('http://localhost:3000/vouchers/save', {
+            const response = await fetch('https://2cb2-177-91-248-67.ngrok-free.app/vouchers/save', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -98,12 +101,12 @@ Número de operación: ${fileInfo.operationNumber}
             }
 
             const result = await response.json()
-            console.log(result) // Mostrar el JSON recibido en la consola
+            console.log(result)
             if (!result.success) {
                 setError(result.message)
             }
         } catch (error) {
-            setError('Error al copiar la información al portapapeles y guardar la información')
+            setError('Error al copiar la información al portapapeles')
         }
     }
 
