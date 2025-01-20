@@ -15,6 +15,10 @@ export default function FileUpload() {
 
     const onDrop = useCallback((acceptedFiles) => {
         const file = acceptedFiles[0]
+        if (!file.type.startsWith('image/')) {
+            setError('Solo se permiten archivos de imagen (JPG, PNG)')
+            return
+        }
         if (file.size > 5 * 1024 * 1024) {
             setError('El archivo no debe superar los 5MB')
             return
@@ -140,7 +144,7 @@ export default function FileUpload() {
                             >
                                 <input {...getInputProps()} className="hidden" />
                                 <Upload className="mx-auto h-12 w-12 text-gray-400 transition-transform duration-500 transform hover:scale-110" />
-                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                <div className="flex flex-col items-center justify-center pt-5 pb-6 p-10">
                                     <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
                                         <span className="font-semibold">Arrastra y suelta un archivo aquí,</span> o haz clic para seleccionar un archivo
                                     </p>
