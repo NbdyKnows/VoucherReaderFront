@@ -42,7 +42,7 @@ export default function FileUpload() {
         formData.append('file', file)
 
         try {
-            const response = await fetch('https://2cb2-177-91-248-67.ngrok-free.app/vouchers/upload', {
+            const response = await fetch('https://voucherreaderback.onrender.com/vouchers/upload', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -92,7 +92,7 @@ export default function FileUpload() {
             await navigator.clipboard.writeText(fileInfoText)
             alert('Información copiada al portapapeles exitosamente')
 
-            const response = await fetch('https://2cb2-177-91-248-67.ngrok-free.app/vouchers/save', {
+            const response = await fetch('https://voucherreaderback.onrender.com/vouchers/save', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
